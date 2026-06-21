@@ -33,7 +33,6 @@ const App = () => {
   // })
 
 
-  const squareRef = useRef();
 
   // useGSAP(() => {
   //   gsap.from(squareRef.current,{
@@ -67,19 +66,54 @@ const App = () => {
 
 
 
-  const [xVal, setXVal] = useState(0);
-  const [rotateX, setRotateX] = useState(0);
-  const rotate = gsap.utils.random(-360, 360, 45);
-  const randomX = gsap.utils.random(-500, 500, 100);
+  // const [xVal, setXVal] = useState(0);
+  // const [yVal, setYVal] = useState(0);
+  // const [rotateX, setRotateX] = useState(0);
+  // const rotate = gsap.utils.random(-360, 360, 45);
+  // const randomX = gsap.utils.random(-500, 500, 100);
+  // const randomY = gsap.utils.random(-500, 500, 100);
 
 
-  useGSAP(() => {
-    gsap.to(".square", {
-      x: xVal,
-      duration: 0.3,
-      rotate: rotateX
+  // const imageRef = useRef();
+
+
+  // useGSAP(() => {
+  //   gsap.to(".square", {
+  //     x: xVal,
+  //     duration: 0.3,
+  //     rotate: rotateX
+  //   })
+  // }, [xVal, rotateX])
+
+
+  // useGSAP(() => {
+  //   gsap.to(imageRef.current, {
+  //     x: xVal,
+  //     y: yVal,
+  //     duration: 0.3,
+  //     rotate: rotateX
+  //   })
+  // }, [xVal, rotateX, yVal]);
+
+
+  //  useGSAP(() => {
+  //   gsap.to(imageRef.current, {
+  //     x: xVal,
+  //     y: yVal,
+  //     duration: 0.3,
+  //     rotate: rotateX
+  //   })
+  // }, {scope: 'main', dependencies:[xVal,yVal,rotateX]});
+
+  const squareRef = useRef();
+  const { contextSafe } = useGSAP();
+
+  const rotateBox = contextSafe(() => {
+    gsap.to(squareRef.current, {
+      rotate: "+=360",
+      duration: 0.6,
     })
-  }, [xVal, rotateX])
+  });
 
   return (
     <main>
@@ -97,11 +131,15 @@ const App = () => {
       </div> */}
 
       {/* <div className="circle"></div> */}
-      <div className="square"></div>
-      <button onClick={() => {
+      {/* <div className="square"></div> */}
+      {/* <img onClick={() => {
         setXVal(randomX);
+        setYVal(randomY);
         setRotateX(rotate)
-      }} >Animate</button>
+      }} ref={imageRef} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuzbf8PiDmtpyNe_inEs3XHkzJvGHq-iwEwFqyDN3uYw&s=10" alt="" /> */}
+      <button onClick={rotateBox}>Animate</button>
+      <div ref={squareRef} className="square"></div>
+
     </main>
   )
 }

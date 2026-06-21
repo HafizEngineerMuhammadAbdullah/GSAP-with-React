@@ -68,6 +68,11 @@ button {
   cursor: pointer;
 }
 
+img{
+  height: 80px;
+  cursor: pointer;
+}
+
 button:active{
   transform: scale(0.96);
 }
